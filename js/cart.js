@@ -8,8 +8,14 @@ var cart;
 
 function loadCart() {
   var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  // for(let i=0 ; i<cartItems.length ; i++) {
+  //   console.log('hello' + cartItems[i]);
+  // }
+  
   cart = new Cart(cartItems);
+  console.log(cart);
 }
+
 
 // Make magic happen --- re-pull the Cart, clear out the screen and re-draw it
 function renderCart() {
@@ -19,10 +25,58 @@ function renderCart() {
 }
 
 // TODO: Remove all of the rows (tr) in the cart table (tbody)
-function clearCart() {}
+function clearCart() {
+var removedRows = document.querySelectorAll('#cart tbody tr');
+console.log(removedRows);
+for (var i=0 ; i <= removedRows.length ;i++)
+{
+  if (removedRows[i])
+  {
+    removedRows[i].remove();
+  }
+}
+}
+
+
+
 
 // TODO: Fill in the <tr>'s under the <tbody> for each item in the cart
 function showCart() {
+
+  var tbodyEl =  document.querySelector('#cart tbody')
+  for (let i in cart.items){
+
+  var rowEl =document.createElement('tr');
+  tbodyEl.appendChild(rowEl);
+
+  var deleteEl = document.createElement('td');
+  rowEl.appendChild(deleteEl);
+  deleteEl.textContent = 'X';
+  deleteEl.classList.add('deletEl')
+  deleteEl.id=i;
+
+  var quantityEl = document.createElement('td');
+  rowEl.appendChild(quantityEl);
+  quantityEl.textContent = cart.items[i].quantity
+
+  var itemEl = document.createElement('td');
+  rowEl.appendChild(itemEl);
+  itemEl.textContent = cart.items[i].product;
+
+    var imEl = document.createElement('img')
+    imEl.appendChild(rowEl);
+    for ( var j=0 ; j<Product.allProducts.length ; j++ )
+    {
+      imEl.src=Product.allProducts[j].filePath;
+      console.log(Product.allProducts[j]);
+    }
+    console.log(tbodyEl);
+
+  }
+
+
+  
+  
 
   // TODO: Find the table body
 
@@ -34,6 +88,19 @@ function showCart() {
 }
 
 function removeItemFromCart(event) {
+
+  if ( event.target.classList.contains('deletEl'))
+  {
+    cart.removeItem(event.target.id)
+
+    cart.saveToLocalStorage();
+
+    // showCart();
+    renderCart();
+
+  }
+
+
 
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
   // TODO: Save the cart back to local storage

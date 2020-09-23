@@ -1,1 +1,36 @@
 /* TODO: Make it awesome */
+*{
+    box-sizing: border-box;
+    transition: .5s;
+}
+body{
+    background-color: rgb(236, 206, 104);
+    text-align: center;
+    margin: 40px;
+}
+
+header ul li {
+    display: inline-block;
+    float: left;
+    font-size: 23px;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+main
+{
+    clear: both;
+}
+
+footer p
+{   
+    margin-top: 450px;
+    text-align: center;
+    font-size: large;
+
+}
+footer
+{
+    background-color: brown;
+}
+
